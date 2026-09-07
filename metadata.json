@@ -1,0 +1,6 @@
+{
+  "name": "NumReach",
+  "description": "NumReach is the premier Countdown number game solver and math puzzle trainer. Find exact solutions to any Countdown target or play guaranteed numbers rounds.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

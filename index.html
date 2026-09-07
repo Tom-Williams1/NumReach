@@ -1,0 +1,616 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NumReach — Countdown Number Game Solver</title>
+    <meta name="description" content="NumReach is the ultimate Countdown number game solver and challenge generator. Calculate exact solutions to any Countdown numbers round, or play guaranteed solvable challenges." />
+    <meta name="keywords" content="countdown number game solver, countdown numbers game, countdown solver, countdown numbers round, uk countdown math solver, target number calculator" />
+    <meta property="og:title" content="NumReach — Countdown Number Game Solver" />
+    <meta property="og:description" content="NumReach is the ultimate Countdown number game solver and challenge generator. Calculate exact solutions to any Countdown numbers round, or play guaranteed solvable challenges." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="app-container" id="app-root">
+      
+      <!-- ==================================================================
+           HEADER & NAVIGATION BAR
+           ================================================================== -->
+      <header class="site-header" id="main-header">
+        <a href="#home" class="brand-section" id="site-brand" title="NumReach — Countdown Number Game Solver">
+          <div class="brand-icon" id="brand-logo-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+              <path d="M12 2v3"></path>
+              <path d="M12 19v3"></path>
+              <path d="M2 12h3"></path>
+              <path d="M19 12h3"></path>
+            </svg>
+          </div>
+          <div class="brand-text-col">
+            <div class="brand-title">NumReach</div>
+            <div class="brand-tagline">Countdown Number Game Solver</div>
+          </div>
+        </a>
+
+        <!-- Mode Switcher Tabs -->
+        <nav class="mode-nav" id="main-mode-nav" aria-label="Game Modes">
+          <button class="mode-tab-btn active" id="tab-mode-solve" data-mode="solve">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+              <line x1="8" y1="6" x2="16" y2="6"></line>
+              <line x1="16" y1="14" x2="16" y2="18"></line>
+              <path d="M8 10h.01"></path>
+              <path d="M12 10h.01"></path>
+              <path d="M16 10h.01"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M8 18h.01"></path>
+              <path d="M12 18h.01"></path>
+            </svg>
+            Solve My Numbers
+          </button>
+          <button class="mode-tab-btn" id="tab-mode-game" data-mode="game">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Make Me A Problem
+          </button>
+        </nav>
+
+        <!-- Auxiliary Action Buttons (History, Stats, Rules, Sound) -->
+        <div class="header-actions" id="header-aux-actions">
+          <button class="nav-icon-btn" id="nav-btn-history" title="View Solved History">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            History
+          </button>
+          <button class="nav-icon-btn" id="nav-btn-stats" title="View Play Stats">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10"></line>
+              <line x1="12" y1="20" x2="12" y2="4"></line>
+              <line x1="6" y1="20" x2="6" y2="14"></line>
+            </svg>
+            Stats <span id="header-streak-count" style="color: #fbbf24; font-weight: 700;"></span>
+          </button>
+          <button class="nav-icon-btn" id="nav-btn-rules" title="Countdown Rules & Guide">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            Rules
+          </button>
+          <button class="nav-icon-btn active" id="sound-toggle-btn" title="Toggle Sound Feedback">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- ==================================================================
+           VIEW: HOME / OVERVIEW (Two Large Selectable Mode Cards)
+           ================================================================== -->
+      <section class="view-section" id="view-home">
+        <div class="section-title-box">
+          <h1 class="section-title">Select an Experience</h1>
+          <p class="section-desc">Choose between finding target equations with your own numbers or challenging your math skills with guaranteed puzzles.</p>
+        </div>
+
+        <div class="hero-modes-grid" id="home-mode-cards">
+          <!-- Mode Card 1: Solve My Numbers -->
+          <div class="hero-mode-card primary" id="hero-card-solve" tabindex="0">
+            <div class="card-icon-bubble">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="4"></circle>
+                <line x1="12" y1="2" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22" y2="12"></line>
+              </svg>
+            </div>
+            <h2 class="hero-mode-title">SOLVE MY NUMBERS</h2>
+            <p class="hero-mode-desc">Give us your numbers and target. We'll find the equation. Fast recursive algorithm with deduplication and difficulty scoring.</p>
+            <div class="hero-card-cta">
+              Solve Numbers →
+            </div>
+          </div>
+
+          <!-- Mode Card 2: Make Me A Problem -->
+          <div class="hero-mode-card" id="hero-card-game" tabindex="0">
+            <div class="card-icon-bubble">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.439 7.85c0-2.68-2.17-4.85-4.85-4.85-1.57 0-2.97.75-3.87 1.91A4.85 4.85 0 0 0 6.85 3C4.17 3 2 5.17 2 7.85c0 1.57.75 2.97 1.91 3.87A4.85 4.85 0 0 0 3 15.57c0 2.68 2.17 4.85 4.85 4.85 1.57 0 2.97-.75 3.87-1.91.9 1.16 2.3 1.91 3.87 1.91 2.68 0 4.85-2.17 4.85-4.85 0-1.57-.75-2.97-1.91-3.87 1.16-.9 1.91-2.3 1.91-3.87z"></path>
+              </svg>
+            </div>
+            <h2 class="hero-mode-title">MAKE ME A PROBLEM</h2>
+            <p class="hero-mode-desc">Generate a number challenge and see if you can solve it. Guaranteed solvable with interactive equation builder and progressive hints.</p>
+            <div class="hero-card-cta">
+              Create Challenge →
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           VIEW: MODE 1 — SOLVE MY NUMBERS WORKSPACE
+           ================================================================== -->
+      <section class="view-section active" id="view-solve">
+        
+        <!-- Numbers Configuration Card -->
+        <div class="content-card" id="card-numbers-input">
+          <div class="card-header-row">
+            <div class="section-title-box">
+              <span class="section-label">Input Data</span>
+              <h2 class="section-title">Available Numbers</h2>
+            </div>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <button class="btn-secondary" id="solve-example-btn" title="Load sample countdown numbers">
+                Try Example
+              </button>
+              <button class="btn-secondary" id="solve-clear-nums-btn" title="Clear all entered numbers">
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          <div class="number-input-row">
+            <input 
+              type="text" 
+              class="text-input-field" 
+              id="solve-num-input" 
+              placeholder="Enter number or comma-separated list (e.g. 2, 3, 7, 10, 25)" 
+              aria-label="Add numbers"
+            />
+            <button class="btn-secondary" id="solve-add-num-btn">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Add Number
+            </button>
+          </div>
+
+          <!-- Chips Area -->
+          <div class="chips-container" id="solver-chips-container" aria-label="Number chips">
+            <!-- Dynamic Chips Injected Here -->
+          </div>
+        </div>
+
+        <!-- Target Number Card -->
+        <div class="content-card" id="card-target-input">
+          <div class="section-title-box">
+            <span class="section-label">Target Number</span>
+            <h2 class="section-title">The Target to Reach</h2>
+          </div>
+          <div class="target-input-wrapper">
+            <input 
+              type="number" 
+              class="target-input" 
+              id="solve-target-input" 
+              value="847" 
+              placeholder="847" 
+              aria-label="Target number"
+            />
+          </div>
+        </div>
+
+        <!-- Settings Section (Collapsible Accordion) -->
+        <details class="settings-details" id="solver-settings-details">
+          <summary class="settings-summary" id="solver-settings-summary">
+            <span style="display: flex; align-items: center; gap: 8px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              Advanced Rules & Constraints
+            </span>
+            <span style="font-size: 12px; color: var(--text-muted);">Click to toggle</span>
+          </summary>
+          <div class="settings-content" id="solver-settings-content">
+            <!-- Allowed Operations -->
+            <div class="setting-group">
+              <span class="setting-group-label">Allowed Mathematical Operations</span>
+              <label class="checkbox-label"><input type="checkbox" id="op-add" checked /> Addition (+)</label>
+              <label class="checkbox-label"><input type="checkbox" id="op-sub" checked /> Subtraction (−)</label>
+              <label class="checkbox-label"><input type="checkbox" id="op-mul" checked /> Multiplication (×)</label>
+              <label class="checkbox-label"><input type="checkbox" id="op-div" checked /> Division (÷)</label>
+            </div>
+
+            <!-- Mathematical Rules -->
+            <div class="setting-group">
+              <span class="setting-group-label">Constraints & Domain</span>
+              <label class="checkbox-label">
+                <input type="checkbox" id="toggle-must-use-all" /> 
+                Must use every supplied number
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="toggle-allow-decimals" /> 
+                Allow intermediate decimals
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" id="toggle-allow-negatives" /> 
+                Allow negative intermediate values
+              </label>
+            </div>
+
+            <!-- Max Solutions -->
+            <div class="setting-group">
+              <span class="setting-group-label">Maximum Solutions to Display</span>
+              <select class="custom-select" id="select-max-solutions">
+                <option value="1">1 Solution (Fastest)</option>
+                <option value="3">3 Solutions</option>
+                <option value="5" selected>5 Solutions</option>
+                <option value="10">10 Solutions</option>
+              </select>
+            </div>
+          </div>
+        </details>
+
+        <!-- Primary Solve Action Button -->
+        <button class="btn-primary" id="solve-submit-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          SOLVE EQUATION
+        </button>
+
+        <!-- Solving State Animation Box -->
+        <div class="solving-loader-box" id="solver-loader">
+          <div class="spinner"></div>
+          <div class="solving-status-text">Exploring mathematical combinations...</div>
+        </div>
+
+        <!-- Solver Results Display -->
+        <div class="content-card solver-results-card" id="solver-results-card">
+          <!-- Status Banner (Exact vs Closest) -->
+          <div class="result-status-banner exact" id="result-status-banner">
+            <span>EXACT MATCH FOUND ✓</span>
+            <span>Target: 847</span>
+          </div>
+
+          <!-- Hero Equation Display Box -->
+          <div class="hero-equation-box">
+            <div class="equation-display-text" id="result-equation-text">
+              (25 × 10 × 3) + (7 × 14) = 848
+            </div>
+            <div class="equation-meta-row" id="result-meta-row">
+              <!-- Injected by script -->
+            </div>
+          </div>
+
+          <!-- Step-by-Step Calculation Trace -->
+          <div class="step-trace-container" id="result-step-trace">
+            <!-- Injected step items -->
+          </div>
+
+          <!-- Alternative Solutions List -->
+          <div id="alt-solutions-wrapper" style="display: none;">
+            <div class="section-label" style="margin-bottom: 8px;">Alternative Valid Equations</div>
+            <div class="alternatives-container" id="result-alternatives"></div>
+          </div>
+
+          <!-- Actions: Copy Equation & Share -->
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 6px;">
+            <button class="btn-secondary" id="btn-copy-solver-eq">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              Copy Equation
+            </button>
+            <button class="btn-secondary" id="btn-share-solver-puzzle">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+              </svg>
+              Share Puzzle
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           VIEW: MODE 2 — MAKE ME A PROBLEM WORKSPACE
+           ================================================================== -->
+      <section class="view-section" id="view-game">
+        
+        <!-- Controls & Difficulty Bar -->
+        <div class="content-card" id="card-game-controls">
+          <div class="card-header-row">
+            <div class="section-title-box">
+              <span class="section-label">Challenge Setup</span>
+              <h2 class="section-title">Difficulty Level</h2>
+            </div>
+            
+            <div class="difficulty-pill-group" id="diff-selector-group">
+              <button class="diff-btn" data-diff="easy">Easy</button>
+              <button class="diff-btn active" data-diff="medium">Medium</button>
+              <button class="diff-btn" data-diff="hard">Hard</button>
+              <button class="diff-btn" data-diff="custom">Custom</button>
+            </div>
+          </div>
+
+          <!-- Custom Difficulty Options (Shows when Custom is active) -->
+          <div class="custom-difficulty-box" id="game-custom-panel">
+            <div class="form-field-unit">
+              <label for="custom-num-count">Numbers Count (3 - 7)</label>
+              <input type="number" id="custom-num-count" class="text-input-field" value="5" min="3" max="7" />
+            </div>
+            <div class="form-field-unit">
+              <label for="custom-min-target">Min Target</label>
+              <input type="number" id="custom-min-target" class="text-input-field" value="50" min="10" max="999" />
+            </div>
+            <div class="form-field-unit">
+              <label for="custom-max-target">Max Target</label>
+              <input type="number" id="custom-max-target" class="text-input-field" value="500" min="20" max="999" />
+            </div>
+            <div class="form-field-unit">
+              <label for="custom-max-ops">Max Operations</label>
+              <input type="number" id="custom-max-ops" class="text-input-field" value="3" min="1" max="5" />
+            </div>
+          </div>
+
+          <button class="btn-primary" id="game-generate-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
+            </svg>
+            GENERATE NEW PROBLEM
+          </button>
+        </div>
+
+        <!-- Target & Numbers Arena -->
+        <div class="game-arena" id="game-active-arena">
+          
+          <!-- Target Display -->
+          <div class="target-hero-card" id="game-target-card">
+            <span class="target-hero-label">Target to Reach</span>
+            <div class="target-hero-number" id="game-target-number">847</div>
+          </div>
+
+          <!-- Available Numbers -->
+          <div class="available-numbers-section">
+            <span class="available-numbers-label">Available Numbers (Click to Insert)</span>
+            <div class="interactive-numbers-grid" id="game-numbers-grid">
+              <!-- Dynamically populated number buttons -->
+            </div>
+          </div>
+
+          <!-- Interactive Equation Builder Card -->
+          <div class="builder-card" id="game-builder-card">
+            <div class="section-label">Your Equation Construction</div>
+            
+            <!-- Visual Equation Screen -->
+            <div class="builder-screen" id="builder-screen-wrapper">
+              <div class="visual-equation-tokens" id="visual-equation-tokens">
+                <!-- Tokens injected here -->
+              </div>
+              <div class="live-eval-bar">
+                <span style="color: var(--text-muted);">Current Value:</span>
+                <span class="live-eval-val invalid" id="live-eval-preview">–</span>
+              </div>
+            </div>
+
+            <!-- Operator Buttons Keypad -->
+            <div class="operators-keypad" id="operators-keypad">
+              <button class="keypad-btn" data-token="+" title="Addition">+</button>
+              <button class="keypad-btn" data-token="-" title="Subtraction">−</button>
+              <button class="keypad-btn" data-token="*" title="Multiplication">×</button>
+              <button class="keypad-btn" data-token="/" title="Division">÷</button>
+              <button class="keypad-btn" data-token="(" title="Open Parenthesis">(</button>
+              <button class="keypad-btn" data-token=")" title="Close Parenthesis">)</button>
+              <button class="keypad-btn action" id="keypad-btn-backspace" title="Delete last element">⌫ Del</button>
+              <button class="keypad-btn action" id="keypad-btn-clear" title="Clear entire equation">↺ Clear</button>
+            </div>
+
+            <!-- Direct Text Input Alternative -->
+            <div class="manual-input-box">
+              <label for="manual-equation-input" class="manual-input-label">Or type directly using keyboard:</label>
+              <input 
+                type="text" 
+                class="text-input-field" 
+                id="manual-equation-input" 
+                placeholder="e.g. (25 * 10) + 3" 
+                aria-label="Manual equation typing"
+              />
+            </div>
+
+            <!-- Game Submission Controls -->
+            <div class="game-controls-row">
+              <button class="btn-game-check" id="game-check-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                Check Answer
+              </button>
+              <button class="btn-secondary" id="game-hint-btn" title="Progressively reveal tips">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="1" x2="12" y2="3"></line>
+                  <path d="M12 7a5 5 0 0 0-5 5c0 1.7.9 3.2 2 4.1V18a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-1.9c1.1-.9 2-2.4 2-4.1a5 5 0 0 0-5-5z"></path>
+                  <line x1="10" y1="22" x2="14" y2="22"></line>
+                </svg>
+                Show Hint
+              </button>
+              <button class="btn-secondary" id="game-reveal-btn" title="Reveal the guaranteed solution">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Reveal Solution
+              </button>
+              <button class="btn-secondary" id="game-new-problem-btn" title="Generate fresh puzzle">
+                New Problem
+              </button>
+              <button class="btn-secondary" id="game-share-puzzle-btn" title="Copy puzzle to share">
+                Share
+              </button>
+            </div>
+
+            <!-- Feedback / Result Banner -->
+            <div class="game-result-feedback" id="game-feedback-banner">
+              <!-- Injected by script -->
+            </div>
+
+            <!-- Revealed Solution Box -->
+            <div class="revealed-solution-box" id="game-revealed-solution">
+              <div style="font-size: 13px; font-weight: 800; color: #60a5fa; text-transform: uppercase;">Guaranteed Equation</div>
+              <div class="equation-display-text" id="revealed-solution-equation" style="font-size: 22px;"></div>
+              <div id="revealed-solution-steps" style="font-family: var(--font-mono); font-size: 13px; color: var(--text-secondary);"></div>
+            </div>
+
+            <!-- Progressive Hints Card -->
+            <div class="hints-card" id="game-hints-card" style="display: none;">
+              <div class="section-label">Revealed Hints</div>
+              <div id="hints-display-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================================================================
+           MODAL: LOCAL HISTORY
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-history">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+              Solved Puzzles History
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="history-list" id="history-items-list">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary" id="btn-clear-history">Clear History</button>
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           MODAL: LOCAL STATS
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-stats">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              Player Statistics
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body">
+            <div class="stats-grid">
+              <div class="stat-metric-card">
+                <div class="stat-val" id="stat-attempted">0</div>
+                <div class="stat-label">Challenges Attempted</div>
+              </div>
+              <div class="stat-metric-card">
+                <div class="stat-val" id="stat-solved">0</div>
+                <div class="stat-label">Puzzles Solved</div>
+              </div>
+              <div class="stat-metric-card">
+                <div class="stat-val" id="stat-streak">0</div>
+                <div class="stat-label">Current Win Streak</div>
+              </div>
+              <div class="stat-metric-card">
+                <div class="stat-val" id="stat-best-streak">0</div>
+                <div class="stat-label">Best Win Streak</div>
+              </div>
+            </div>
+            <div class="stat-metric-card" style="margin-top: 4px;">
+              <div class="stat-val" id="stat-win-rate">0%</div>
+              <div class="stat-label">Target Accuracy Rate</div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           MODAL: RULES & HOW TO PLAY
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-rules">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              How NumReach Works — Countdown Number Game Solver
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body" style="font-size: 14px; line-height: 1.6; color: var(--text-secondary);">
+            <p><strong style="color: var(--text-primary);">The Concept:</strong> Inspired by the iconic UK television show <em>Countdown</em> numbers round ("one from the top and five from anywhere else!"). Using only your available tiles and basic arithmetic (+, −, ×, ÷), reach the target number exactly or get as close as mathematically possible.</p>
+            <p><strong style="color: var(--text-primary);">Official Countdown Rules:</strong></p>
+            <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 8px;">
+              <li>Each available number tile can be used at most once.</li>
+              <li>You do not need to use all 6 numbers.</li>
+              <li>Traditional Countdown rules require integer-only intermediate steps (no fractions or decimals).</li>
+              <li>Division by zero and negative intermediate totals are disallowed.</li>
+            </ul>
+            <p><strong style="color: var(--text-primary);">Simplicity & Difficulty Ranking:</strong> NumReach ranks equations by simplicity: calculations requiring fewer operational steps, avoiding fractions, and keeping intermediate values close to the target appear first.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Got It</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           FOOTER / SEO INFORMATION
+           ================================================================== -->
+      <footer class="site-footer" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+            <div style="font-weight: 700; color: var(--text-secondary);">
+              NumReach — The Free Countdown Number Game Solver
+            </div>
+            <div style="font-size: 12px;">
+              Fast recursive solver & guaranteed problem generator
+            </div>
+          </div>
+          <p style="margin: 0; color: var(--text-muted); font-size: 12px;">
+            NumReach is an online Countdown number game solver and training playground. Enter any six numbers and 3-digit target from the UK television show Countdown, or generate new practice rounds with guaranteed solutions. Operates 100% locally in your browser.
+          </p>
+        </div>
+      </footer>
+
+      <!-- Toast Container -->
+      <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+    </div>
+
+    <!-- Application Script -->
+    <script src="./script.js"></script>
+  </body>
+</html>
