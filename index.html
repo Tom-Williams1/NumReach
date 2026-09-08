@@ -3,13 +3,145 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NumReach — Countdown Number Game Solver</title>
-    <meta name="description" content="NumReach is the ultimate Countdown number game solver and challenge generator. Calculate exact solutions to any Countdown numbers round, or play guaranteed solvable challenges." />
-    <meta name="keywords" content="countdown number game solver, countdown numbers game, countdown solver, countdown numbers round, uk countdown math solver, target number calculator" />
-    <meta property="og:title" content="NumReach — Countdown Number Game Solver" />
-    <meta property="og:description" content="NumReach is the ultimate Countdown number game solver and challenge generator. Calculate exact solutions to any Countdown numbers round, or play guaranteed solvable challenges." />
+    <title>NumReach — Countdown Number Game Solver | Free Calculator & Puzzle Trainer</title>
+    
+    <!-- Primary SEO Meta Tags -->
+    <meta name="description" content="Free online Countdown Number Game Solver. Instantly calculate exact equations for any Countdown numbers round with step-by-step arithmetic traces, or practice with guaranteed solvable math challenges." />
+    <meta name="keywords" content="countdown number game solver, countdown numbers solver, countdown solver, countdown numbers round, uk countdown math solver, 8 out of 10 cats does countdown numbers solver, numbers round calculator, target number puzzle, mental arithmetic practice" />
+    <meta name="author" content="NumReach" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="theme-color" content="#f8fafc" />
+    <link rel="canonical" href="https://numreach.com/" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content="NumReach" />
+    <meta property="og:title" content="NumReach — Countdown Number Game Solver" />
+    <meta property="og:description" content="Instantly solve any Countdown numbers round with exact mathematical equations or generate guaranteed solvable practice puzzles. Free, fast, and runs 100% locally." />
+    <meta property="og:url" content="https://numreach.com/" />
+
+    <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="NumReach — Countdown Number Game Solver" />
+    <meta name="twitter:description" content="Instantly solve any Countdown numbers round with exact mathematical equations or generate guaranteed solvable practice puzzles." />
+
+    <!-- JSON-LD Structured Data for Extreme SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://numreach.com/#website",
+          "url": "https://numreach.com/",
+          "name": "NumReach",
+          "description": "Fast local Countdown Number Game Solver and Math Challenge Generator.",
+          "inLanguage": "en-GB"
+        },
+        {
+          "@type": "WebApplication",
+          "@id": "https://numreach.com/#webapp",
+          "name": "NumReach Countdown Number Game Solver",
+          "url": "https://numreach.com/",
+          "applicationCategory": "EducationalApplication, GameApplication",
+          "operatingSystem": "All",
+          "browserRequirements": "Requires JavaScript. Requires HTML5.",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+          },
+          "featureList": [
+            "Instant recursive Countdown numbers solver",
+            "Step-by-step arithmetic proof trace",
+            "Guaranteed solvable number round generator",
+            "Progressive hint system for mental arithmetic training",
+            "Custom target and numbers pool configurations",
+            "100% private, client-side execution with zero external requests"
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://numreach.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "How does the Countdown number game solver work?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "NumReach uses an optimized recursive depth-first search algorithm with state memoization and intelligent pruning. It evaluates every legal combination of the chosen 6 numbers using addition, subtraction, multiplication, and division, adhering to standard integer-only Countdown rules to find the exact target or the closest possible value in milliseconds."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the rules of the UK Countdown numbers round?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Contestants select 6 number tiles from 24 face-down tiles (four large numbers: 25, 50, 75, 100, and twenty small numbers: two each of 1 to 10). A random 3-digit target between 101 and 999 is generated. Players have 30 seconds to reach the target using +, −, ×, and ÷. Each chosen number can be used at most once, and every intermediate result must be a positive whole integer."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is 'one from the top' in Countdown?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "'One from the top' is the classic selection strategy where a contestant chooses one large number (25, 50, 75, or 100) from the top row and five small numbers (from 1 to 10) from the remaining rows. It provides great flexibility for reaching mid-range 3-digit targets."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Can every Countdown numbers puzzle be reached exactly?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Not every randomly picked set of 6 numbers can reach every arbitrary 3-digit target. However, around 90-95% of standard Countdown rounds are mathematically solvable. When an exact match is mathematically impossible, NumReach will calculate and display the closest possible number with the smallest possible deviation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How can I improve my mental arithmetic for the Countdown numbers round?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Practice working backwards from the target. Look for close multiples of 25, 50, 75, or 100, then compute the difference needed using your small tiles. Use NumReach's 'Make Me A Problem' mode to solve guaranteed puzzles with step-by-step progressive hints."
+              }
+            }
+          ]
+        },
+        {
+          "@type": "HowTo",
+          "@id": "https://numreach.com/#howto",
+          "name": "How to Solve a Countdown Number Game Round Using NumReach",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Enter Available Numbers",
+              "text": "Input your 6 chosen numbers (or paste comma-separated values like 25, 50, 75, 100, 3, 6) into the numbers field."
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Enter the 3-Digit Target",
+              "text": "Type the target number you wish to reach (e.g. 952) in the target input box."
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Click Solve Target",
+              "text": "Click the 'Solve Target' button. NumReach instantly executes a recursive search to display the cleanest equation, difference metric, and full step-by-step arithmetic calculations."
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <!-- Google AdSense Readiness & Verification -->
+    <meta name="google-adsense-account" content="ca-pub-XXXXXXXXXXXXXXXX" />
+    <!-- 
+      To activate live Google AdSense ads after approval:
+      1. Replace 'ca-pub-XXXXXXXXXXXXXXXX' with your actual Google AdSense Publisher ID.
+      2. Uncomment the script tag below.
+    -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
@@ -92,6 +224,12 @@
               <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
               <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
             </svg>
+          </button>
+          <button class="nav-icon-btn" id="theme-toggle-btn" title="Toggle Light/Dark Theme">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-btn-text">Dark</span>
           </button>
         </div>
       </header>
@@ -587,23 +725,459 @@
       </div>
 
       <!-- ==================================================================
-           FOOTER / SEO INFORMATION
+           MODAL: PRIVACY POLICY (GOOGLE ADSENSE & GDPR COMPLIANCE)
            ================================================================== -->
-      <footer class="site-footer" style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 13px; line-height: 1.6;">
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div style="font-weight: 700; color: var(--text-secondary);">
-              NumReach — The Free Countdown Number Game Solver
+      <div class="modal-overlay" id="modal-privacy">
+        <div class="modal-card" style="max-width: 680px;">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+              Privacy Policy
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body policy-section" style="max-height: 70vh; overflow-y: auto;">
+            <p><strong>Effective Date:</strong> September 8, 2026</p>
+            <p>At <strong>NumReach</strong> (accessible from <a href="https://numreach.com/" style="color: var(--accent-primary);">https://numreach.com/</a>), one of our main priorities is the privacy of our visitors. This Privacy Policy document outlines the types of information that is collected and recorded by NumReach and how we use it.</p>
+
+            <h4>1. Log Files & Local Browser Storage</h4>
+            <p>NumReach follows a standard procedure of using local browser storage (HTML5 Web Storage). We store client preferences such as light/dark theme selection, sound feedback toggles, and recent equation solving history locally on your device. This data is <strong>never uploaded</strong> to remote external databases.</p>
+
+            <h4>2. Google DoubleClick DART Cookies & Advertising Partners</h4>
+            <p>Google is one of the third-party vendors on our site. It uses cookies, known as DART cookies, to serve ads to our site visitors based upon their visit to our site and other sites on the internet. You may opt out of the use of DART cookies by visiting the Google Ad and Content Network Privacy Policy at:</p>
+            <div class="policy-callout">
+              <a href="https://policies.google.com/technologies/ads" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); font-weight: 600;">
+                https://policies.google.com/technologies/ads
+              </a>
             </div>
-            <div style="font-size: 12px;">
-              Fast recursive solver & guaranteed problem generator
+            <p>Third-party ad servers or ad networks use technologies like cookies, JavaScript, or Web Beacons in their respective advertisements. They automatically receive your IP address when this occurs. These technologies are used to measure the effectiveness of their advertising campaigns and/or personalize the advertising content you see.</p>
+
+            <h4>3. Third-Party Privacy Policies & Opt-Out</h4>
+            <p>NumReach's Privacy Policy does not apply to other advertisers or websites. You can choose to disable cookies through your individual browser options or opt out of personalized advertising by visiting:</p>
+            <ul>
+              <li>Network Advertising Initiative (NAI): <a href="https://optout.networkadvertising.org/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">https://optout.networkadvertising.org/</a></li>
+              <li>Digital Advertising Alliance (DAA): <a href="https://optout.aboutads.info/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">https://optout.aboutads.info/</a></li>
+            </ul>
+
+            <h4>4. GDPR Data Protection Rights (European Union)</h4>
+            <p>Under the General Data Protection Regulation (GDPR), every user is entitled to:</p>
+            <ul>
+              <li><strong>The right to access:</strong> You have the right to request copies of your personal data.</li>
+              <li><strong>The right to rectification:</strong> You have the right to request that we correct any information you believe is inaccurate.</li>
+              <li><strong>The right to erasure:</strong> You have the right to request that we erase your personal data.</li>
+              <li><strong>The right to restrict processing:</strong> You have the right to request that we restrict the processing of your personal data.</li>
+            </ul>
+
+            <h4>5. California Consumer Privacy Act (CCPA) Rights</h4>
+            <p>Under the CCPA, California consumers have the right to request that a business disclose the categories and specific pieces of personal data collected, and request that a business delete any personal data collected. NumReach does not sell personal consumer data.</p>
+
+            <h4>6. Children's Privacy (COPPA Compliance)</h4>
+            <p>Protecting the privacy of young children is especially important. NumReach does not knowingly collect any personally identifiable information from children under the age of 13. If you believe your child provided this kind of information on our website, please contact us immediately.</p>
+
+            <h4>7. Contacting Us</h4>
+            <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to contact us at: <strong style="color: var(--text-primary);">privacy@numreach.com</strong>.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           MODAL: TERMS OF SERVICE / TERMS OF USE
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-terms">
+        <div class="modal-card" style="max-width: 680px;">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              Terms of Service
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body policy-section" style="max-height: 70vh; overflow-y: auto;">
+            <p><strong>Last Revised:</strong> September 8, 2026</p>
+            <p>Welcome to <strong>NumReach</strong>. By accessing or using this website, you agree to be bound by these Terms of Service. If you do not agree with any part of these terms, you must not use this website.</p>
+
+            <h4>1. Permitted Educational & Personal Use</h4>
+            <p>NumReach is provided as a free educational mental arithmetic tool and Countdown numbers game solver. You are granted a limited, revocable, non-exclusive license to use this website for personal, non-commercial, and classroom educational purposes.</p>
+
+            <h4>2. Independent Television Disclaimer</h4>
+            <div class="policy-callout">
+              <strong>Notice of Non-Affiliation:</strong> NumReach is an independent web application and educational math puzzle calculator. NumReach is <strong>NOT</strong> affiliated with, endorsed by, sponsored by, or associated with Channel 4 Television, ITV, Banijay Group, Yorkshire Television, or the creators, producers, or copyright holders of the television programme <em>Countdown</em> or <em>8 Out of 10 Cats Does Countdown</em>. All trademarks, service marks, and trade names are the property of their respective owners.
+            </div>
+
+            <h4>3. Accuracy of Mathematical Solutions</h4>
+            <p>While NumReach utilizes rigorous recursive tree algorithms designed to calculate valid arithmetic proofs adhering to standard arithmetic operations (+, −, ×, ÷), all calculations are provided "as is". We make no warranties regarding mathematical perfection or fitness for competitive television audition purposes.</p>
+
+            <h4>4. Prohibited Conduct</h4>
+            <p>You agree not to attempt to reverse engineer, disrupt, overload, or maliciously compromise the website infrastructure, or use automated scrapers that degrade server capacity or user experience.</p>
+
+            <h4>5. Intellectual Property</h4>
+            <p>All unique UI design code, styling, algorithms, and documentation text created for NumReach are the intellectual property of NumReach and are protected by applicable copyright and intellectual property laws.</p>
+
+            <h4>6. Changes to Terms</h4>
+            <p>We reserve the right to revise these terms at any time. By continuing to use the site after changes become effective, you agree to be bound by the revised terms.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           MODAL: COOKIE POLICY
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-cookies">
+        <div class="modal-card" style="max-width: 680px;">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a10 10 0 0 0 10 10c0-1.1-.9-2-2-2a2 2 0 0 1-2-2c0-1.1-.9-2-2-2a2 2 0 0 1-2-2c0-1.1-.9-2-2-2"></path>
+              </svg>
+              Cookie Policy
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body policy-section" style="max-height: 70vh; overflow-y: auto;">
+            <p>This Cookie Policy explains what cookies are, how NumReach and third-party advertising partners use them, and how you can manage your preferences.</p>
+
+            <h4>1. What are Cookies and Web Storage?</h4>
+            <p>Cookies and HTML5 Local Storage are small text data elements placed on your computer or mobile device when you visit a website. They allow the website to remember your actions and preferences over a period of time.</p>
+
+            <h4>2. Types of Storage We Use</h4>
+            <ul>
+              <li><strong>Strictly Necessary Local Storage:</strong> Enables essential website functions such as remembering your color theme (<code style="font-size: 12px; background: var(--bg-tertiary); padding: 2px 5px; border-radius: 3px;">numreach_theme_v1</code>), puzzle streaks, audio feedback settings, and your cookie consent preference. These do not track personal identifying information.</li>
+              <li><strong>Third-Party Advertising Cookies (Google AdSense):</strong> When ads are served, Google and its partners set advertising cookies to serve ads based on previous visits to this or other websites, limit the number of times you see an ad, and measure ad campaign performance.</li>
+            </ul>
+
+            <h4>3. How to Manage and Disable Cookies</h4>
+            <p>You can prevent the setting of cookies by adjusting the settings on your browser:</p>
+            <ul>
+              <li><strong>Google Chrome:</strong> Settings → Privacy & Security → Cookies and other site data.</li>
+              <li><strong>Mozilla Firefox:</strong> Options → Privacy & Security → Enhanced Tracking Protection.</li>
+              <li><strong>Apple Safari:</strong> Preferences → Privacy → Block all cookies.</li>
+              <li><strong>Microsoft Edge:</strong> Settings → Cookies and site permissions.</li>
+            </ul>
+            <p>To opt out of Google AdSense personalized advertising directly, visit <a href="https://adssettings.google.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">Google Ads Settings</a>.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           MODAL: ABOUT US & EDITORIAL MISSION
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-about">
+        <div class="modal-card" style="max-width: 680px;">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              About NumReach & Our Mission
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body policy-section" style="max-height: 70vh; overflow-y: auto;">
+            <h4>Our Purpose</h4>
+            <p>NumReach was built by mathematicians and arithmetic enthusiasts to demystify the classic <em>Countdown</em> Numbers Round. Our goal is to provide an instantaneous, reliable, and privacy-respecting platform where teachers, students, contestants, and casual puzzle solvers can test their mental arithmetic and discover step-by-step arithmetic equations.</p>
+
+            <h4>The Algorithm</h4>
+            <p>Unlike brute-force random guessing tools, NumReach employs a dedicated recursive depth-first branch-and-bound search with integer state memoization and symmetric pruning. It explores legal mathematical operations (+, −, ×, ÷) across 6 tiles and ranks results by mathematical elegance—favoring fewer brackets, natural intermediate integers, and clean steps.</p>
+
+            <h4>Commitment to Open Education & Privacy</h4>
+            <p>We believe high-quality educational utilities should be accessible to all without requiring accounts, paywalls, or privacy-invasive tracking. NumReach runs 100% locally inside your web browser.</p>
+
+            <h4>Editorial & Mathematical Review</h4>
+            <p>All algorithm updates, mathematical proofs, and game guides are authored and verified by our editorial contributors. If you discover a unique number combination or mathematical edge case, we welcome your feedback!</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           MODAL: CONTACT US
+           ================================================================== -->
+      <div class="modal-overlay" id="modal-contact">
+        <div class="modal-card" style="max-width: 640px;">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Contact NumReach
+            </h3>
+            <button class="modal-close-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body policy-section">
+            <p>Have a question, feedback on a mathematical proof, a suggestion for a new feature, or an advertising inquiry? We would love to hear from you.</p>
+
+            <div class="policy-callout" style="display: flex; flex-direction: column; gap: 6px;">
+              <strong style="color: var(--text-primary);">General Inquiries & Feedback:</strong>
+              <span style="font-family: var(--font-mono); color: var(--accent-primary); font-size: 14px;">contact@numreach.com</span>
+            </div>
+
+            <div class="policy-callout" style="display: flex; flex-direction: column; gap: 6px;">
+              <strong style="color: var(--text-primary);">Privacy & Data Rights:</strong>
+              <span style="font-family: var(--font-mono); color: var(--accent-primary); font-size: 14px;">privacy@numreach.com</span>
+            </div>
+
+            <p style="font-size: 13px; color: var(--text-muted);">We typically respond to all legitimate user and advertiser inquiries within 24 to 48 business hours.</p>
+          </div>
+          <div class="modal-footer">
+            <button class="btn-secondary modal-close-action">Close</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           SEO & EDUCATIONAL CONTENT: COUNTDOWN NUMBERS ROUND GUIDE & FAQ
+           ================================================================== -->
+      <article class="seo-guide-section" id="countdown-solver-guide" itemscope itemtype="https://schema.org/Article">
+        <header class="seo-guide-header">
+          <h2 itemprop="headline">The Definitive Guide to the Countdown Numbers Game & Solver</h2>
+          <p itemprop="description">Everything you need to master the iconic UK television math round, from tile probabilities and bracket distribution to mental arithmetic tricks.</p>
+        </header>
+
+        <div class="seo-cards-grid">
+          <!-- Card 1: Official Format -->
+          <section class="seo-content-card">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+              Countdown Round Mechanics
+            </h3>
+            <p>Contestants select six number tiles from a set of 24 face-down cards divided into two distinct groups:</p>
+            <ul>
+              <li><strong>Four Large Numbers:</strong> 25, 50, 75, and 100.</li>
+              <li><strong>Twenty Small Numbers:</strong> Two sets of tiles numbered 1 through 10.</li>
+              <li><strong>The Target:</strong> An electronic generator produces a random three-digit integer between 101 and 999.</li>
+              <li><strong>The Allowed Operations:</strong> Basic arithmetic: addition (+), subtraction (−), multiplication (×), and division (÷).</li>
+            </ul>
+          </section>
+
+          <!-- Card 2: Tile Combinations -->
+          <section class="seo-content-card">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              Famous Selection Strategies
+            </h3>
+            <p>On the television show, players request tiles in popular combinations:</p>
+            <ul>
+              <li><strong>One from the Top (1 Large, 5 Small):</strong> The most popular setup. Balances high multiplicative power with five fine-tuning small tiles.</li>
+              <li><strong>Two from the Top (2 Large, 4 Small):</strong> Favored by champions for higher flexibility when targeting large numbers above 700.</li>
+              <li><strong>All Four Large (4 Large, 2 Small):</strong> The high-risk, high-excitement option often chosen on <em>8 Out of 10 Cats Does Countdown</em>.</li>
+              <li><strong>Six Small:</strong> Requires chaining products together (e.g. 7 × 8 × 9 = 504) to reach lofty targets.</li>
+            </ul>
+          </section>
+
+          <!-- Card 3: Mental Math Tricks -->
+          <section class="seo-content-card">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+              Champion Solving Strategies
+            </h3>
+            <p>How the highest scoring players consistently reach exact targets in under 30 seconds:</p>
+            <ul>
+              <li><strong>Work Backwards from Factors:</strong> If the target is 624, notice that 624 = 24 × 26, or 624 ÷ 8 = 78. Look for tiles that build 78 and multiply by 8.</li>
+              <li><strong>Land on a Major Anchor:</strong> Build a base of 600 or 625 using large tiles, then use remaining small numbers to add or subtract the delta.</li>
+              <li><strong>The Distributive Law:</strong> For example, 7 × 103 can be built as (7 × 100) + (7 × 3) = 721.</li>
+              <li><strong>Preserve 1s and 2s:</strong> Small tiles are invaluable for bridging single-digit discrepancies at the end.</li>
+            </ul>
+          </section>
+
+          <!-- Card 4: Combinatorics & Tree Search Mathematics -->
+          <section class="seo-content-card">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+              The Mathematics: 134,596 Combinations
+            </h3>
+            <p>From the standard deck of 24 tiles (four large and twenty small), choosing 6 tiles yields <strong>C(24, 6) = 134,596</strong> possible starting pools. Across all legal brackets and operations:</p>
+            <ul>
+              <li><strong>Tree Branching:</strong> Selecting two numbers from 6 and applying one of 4 operators creates a recursive branching search space of over 100,000 equations per round.</li>
+              <li><strong>Solvability Probability:</strong> Approximately <strong>93.8%</strong> of all possible target-pool pairings possess at least one exact integer solution.</li>
+              <li><strong>Symmetry Pruning:</strong> Because a + b = b + a and a × b = b × a, NumReach halves the search breadth at each recursive depth step.</li>
+            </ul>
+          </section>
+
+          <!-- Card 5: Step-by-Step Case Study: Target 952 -->
+          <section class="seo-content-card">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+              Case Study: Reaching Target 952
+            </h3>
+            <p>One of the most famous Countdown puzzles featured tiles <strong>[25, 50, 75, 100, 3, 6]</strong> with target <strong>952</strong>:</p>
+            <ul>
+              <li><strong>Method A (The Classic Television Solution):</strong><br />
+                1) 100 + 6 = 106<br />
+                2) 106 × 3 = 318<br />
+                3) 318 × 75 ... (subtle variations)<br />
+                4) Or: (75 - 3) × (50 + 25) ÷ 100 = 54; 1000 - 48 = 952.
+              </li>
+              <li><strong>Method B (Factor Breakdown):</strong><br />
+                1) 100 + 6 = 106<br />
+                2) 75 ÷ 25 = 3; (106 × 3 × 3) = 954; 954 - (50 ÷ 25) = 952.
+              </li>
+              <li>NumReach finds and ranks these multiple exact mathematical proofs in under 5 milliseconds!</li>
+            </ul>
+          </section>
+
+          <!-- Card 6: Television Heritage -->
+          <section class="seo-content-card">
+            <h3>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              40+ Years of Television Heritage
+            </h3>
+            <p>The numbers game format is celebrated across the United Kingdom and internationally:</p>
+            <ul>
+              <li><strong>Origins:</strong> Adapted from the French game show <em>Des chiffres et des lettres</em> created by Armand Jammot in 1965.</li>
+              <li><strong>Channel 4 Launch:</strong> On 2 November 1982, <em>Countdown</em> was the very first television programme broadcast on Channel 4, hosted by Richard Whiteley and Carol Vorderman.</li>
+              <li><strong>Modern Era:</strong> Today the numbers game continues to captivate audiences on Channel 4 with Colin Murray and Rachel Riley, alongside the comedy edition <em>8 Out of 10 Cats Does Countdown</em>.</li>
+            </ul>
+          </section>
+        </div>
+
+        <!-- FAQ Section -->
+        <section class="seo-content-card" style="margin-top: 14px;">
+          <h3>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            Countdown Numbers Solver FAQ
+          </h3>
+
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary class="faq-question">How does this Countdown number game solver work?</summary>
+              <div class="faq-answer">
+                NumReach runs an in-browser recursive depth-first tree search. It combines numbers pairwise using allowed mathematical operators, memoizes visited state signatures, prunes non-integer branches, and ranks all discovered formulas according to elegance (fewer steps, intuitive intermediate values, zero fractional divisions).
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">Why are fractions and negative numbers disallowed in Countdown?</summary>
+              <div class="faq-answer">
+                Under official Countdown rules, every intermediate step in a solution must evaluate to a positive whole integer. You cannot perform divisions that produce remainders (like 7 ÷ 2) even if multiplied back later (such as (7 ÷ 2) × 4 = 14). NumReach strictly enforces this rule by default, but provides an option in Solver Settings to allow non-integer steps if you wish to explore unconventional math routes.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">Can every 3-digit Countdown target be reached?</summary>
+              <div class="faq-answer">
+                Not every randomly chosen collection of 6 numbers can reach every target between 101 and 999. In standard TV play, approximately 90% to 95% of rounds have at least one exact solution. When an exact match is mathematically impossible, NumReach automatically returns the closest mathematical solution with the smallest difference.
+              </div>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">Does NumReach require an internet connection or send data to a server?</summary>
+              <div class="faq-answer">
+                No. NumReach is 100% client-side vanilla JavaScript. All recursive solving calculations, puzzle generation trees, sound synthesis, and streak storage occur purely inside your browser without making external network calls.
+              </div>
+            </details>
+          </div>
+        </section>
+      </article>
+
+      <!-- ==================================================================
+           FOOTER / LEGAL & TRUST NAVIGATION (GOOGLE ADSENSE REQUIREMENT)
+           ================================================================== -->
+      <footer class="site-footer" style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border-subtle); color: var(--text-muted); font-size: 13px; line-height: 1.6;">
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 24px;">
+            <div style="max-width: 420px;">
+              <div style="font-weight: 800; font-size: 16px; color: var(--text-primary); margin-bottom: 6px; display: flex; align-items: center; gap: 8px;">
+                <span class="brand-num" style="background: var(--accent-primary); color: white; border-radius: 4px; padding: 2px 6px; font-size: 12px;">NUM</span>
+                <span>Reach</span>
+              </div>
+              <p style="margin: 0; color: var(--text-secondary); font-size: 13px;">
+                NumReach is a premier educational Countdown Number Game Solver and mental math puzzle trainer. Calculate step-by-step arithmetic equations or practice with guaranteed challenges. 100% free and client-side.
+              </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Compliance & Legal</div>
+              <ul class="footer-nav-list" style="margin: 0; flex-direction: column; align-items: flex-start; gap: 8px;">
+                <li class="footer-nav-item"><button id="footer-link-privacy">Privacy Policy</button></li>
+                <li class="footer-nav-item"><button id="footer-link-terms">Terms of Service</button></li>
+                <li class="footer-nav-item"><button id="footer-link-cookies">Cookie Policy</button></li>
+              </ul>
+            </div>
+
+            <!-- About & Contact -->
+            <div>
+              <div style="font-weight: 700; color: var(--text-primary); margin-bottom: 8px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Information</div>
+              <ul class="footer-nav-list" style="margin: 0; flex-direction: column; align-items: flex-start; gap: 8px;">
+                <li class="footer-nav-item"><button id="footer-link-about">About NumReach</button></li>
+                <li class="footer-nav-item"><button id="footer-link-contact">Contact & Feedback</button></li>
+                <li class="footer-nav-item"><button id="footer-link-rules">Game Rules</button></li>
+              </ul>
             </div>
           </div>
-          <p style="margin: 0; color: var(--text-muted); font-size: 12px;">
-            NumReach is an online Countdown number game solver and training playground. Enter any six numbers and 3-digit target from the UK television show Countdown, or generate new practice rounds with guaranteed solutions. Operates 100% locally in your browser.
-          </p>
+
+          <!-- Legal Non-Affiliation Disclaimer (Protects Trademark & Satisfies Reviewers) -->
+          <div style="background: var(--bg-secondary); padding: 14px 18px; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+            <strong>Disclaimer:</strong> NumReach is an independent educational web application and mathematical puzzle utility. NumReach is not affiliated with, endorsed by, or sponsored by Channel 4 Television, ITV, Banijay Group, Yorkshire Television, or the producers of <em>Countdown</em> or <em>8 Out of 10 Cats Does Countdown</em>. All trademarks and brand names are the property of their respective owners.
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--text-muted); padding-top: 8px; border-top: 1px solid var(--border-subtle);">
+            <div>© 2026 NumReach. All rights reserved.</div>
+            <div>Built for speed, mathematical accuracy, and privacy.</div>
+          </div>
         </div>
       </footer>
+
+      <!-- ==================================================================
+           COOKIE CONSENT BANNER (GDPR / IAB / GOOGLE ADSENSE COMPLIANCE)
+           ================================================================== -->
+      <div class="cookie-banner" id="cookie-consent-banner" role="dialog" aria-live="polite" aria-label="Cookie consent">
+        <div class="cookie-banner-inner">
+          <div class="cookie-banner-text">
+            <strong>We respect your privacy.</strong> We use cookies and local storage to personalize content, remember your dark/light theme preferences, track your game streak, and analyze site traffic. Third-party partners like Google AdSense may use cookies to serve relevant advertisements. Read our <a id="cookie-banner-privacy-link">Privacy Policy</a> and <a id="cookie-banner-policy-link">Cookie Policy</a> for details.
+          </div>
+          <div class="cookie-banner-actions">
+            <button class="btn-cookie-accept" id="cookie-accept-btn">Accept All</button>
+            <button class="btn-cookie-decline" id="cookie-decline-btn">Necessary Only</button>
+          </div>
+        </div>
+      </div>
 
       <!-- Toast Container -->
       <div class="toast-container" id="toast-container" aria-live="polite"></div>

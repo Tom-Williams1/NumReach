@@ -14,7 +14,9 @@
   const STORAGE_KEYS = {
     HISTORY: 'numtarget_history_v1',
     STATS: 'numtarget_stats_v1',
-    AUDIO_ENABLED: 'numtarget_audio_enabled_v1'
+    AUDIO_ENABLED: 'numtarget_audio_enabled_v1',
+    THEME: 'numreach_theme_v1',
+    COOKIE_CONSENT: 'numreach_cookie_consent_v1'
   };
 
   const appState = {
@@ -889,6 +891,7 @@
     setupSolveMode();
     setupGameMode();
     setupModals();
+    setupCookieConsent();
     updateHeaderStatsBadge();
 
     // Sound toggle state
@@ -901,6 +904,56 @@
         soundBtn.classList.toggle('active', appState.audioEnabled);
         showToast(appState.audioEnabled ? 'Sound enabled' : 'Sound muted');
       });
+    }
+
+    // Theme toggle setup (Crisp Light Mode by default)
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || 'light';
+    applyTheme(savedTheme);
+
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const nextTheme = isDark ? 'light' : 'dark';
+        applyTheme(nextTheme);
+        localStorage.setItem(STORAGE_KEYS.THEME, nextTheme);
+        showToast(nextTheme === 'light' ? 'Light mode enabled' : 'Dark mode enabled');
+        playClickSound();
+      });
+    }
+
+    function applyTheme(theme) {
+      if (theme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        if (themeBtn) {
+          themeBtn.title = 'Switch to Light Mode';
+          themeBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span class="theme-btn-text">Light</span>
+          `;
+        }
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (themeBtn) {
+          themeBtn.title = 'Switch to Dark Mode';
+          themeBtn.innerHTML = `
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <span class="theme-btn-text">Dark</span>
+          `;
+        }
+      }
     }
 
     // Default to 'solve' mode or load clean view
@@ -1803,6 +1856,11 @@
     const modalStats = document.getElementById('modal-stats');
     const modalHistory = document.getElementById('modal-history');
     const modalRules = document.getElementById('modal-rules');
+    const modalPrivacy = document.getElementById('modal-privacy');
+    const modalTerms = document.getElementById('modal-terms');
+    const modalCookies = document.getElementById('modal-cookies');
+    const modalAbout = document.getElementById('modal-about');
+    const modalContact = document.getElementById('modal-contact');
 
     const btnOpenStats = document.getElementById('nav-btn-stats');
     const btnOpenHistory = document.getElementById('nav-btn-history');
@@ -1827,6 +1885,26 @@
         openModal(modalRules);
       });
     }
+
+    // Footer & Link modal triggers
+    const bindModalBtn = (id, modal) => {
+      const el = document.getElementById(id);
+      if (el && modal) {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal(modal);
+        });
+      }
+    };
+
+    bindModalBtn('footer-link-privacy', modalPrivacy);
+    bindModalBtn('cookie-banner-privacy-link', modalPrivacy);
+    bindModalBtn('footer-link-terms', modalTerms);
+    bindModalBtn('footer-link-cookies', modalCookies);
+    bindModalBtn('cookie-banner-policy-link', modalCookies);
+    bindModalBtn('footer-link-about', modalAbout);
+    bindModalBtn('footer-link-contact', modalContact);
+    bindModalBtn('footer-link-rules', modalRules);
 
     // Modal Close Buttons
     document.querySelectorAll('.modal-close-btn, .modal-close-action').forEach(btn => {
@@ -1918,6 +1996,44 @@
     const badge = document.getElementById('header-streak-count');
     if (badge) {
       badge.textContent = appState.stats.currentStreak > 0 ? `🔥 ${appState.stats.currentStreak}` : '';
+    }
+  }
+
+  /* ==========================================================================
+     GDPR / ADSENSE COOKIE CONSENT BANNER CONTROLLER
+     ========================================================================== */
+
+  function setupCookieConsent() {
+    const banner = document.getElementById('cookie-consent-banner');
+    if (!banner) return;
+
+    const consent = localStorage.getItem(STORAGE_KEYS.COOKIE_CONSENT);
+    if (!consent) {
+      // Delay showing banner slightly for smooth UX entry
+      setTimeout(() => {
+        banner.classList.add('active');
+      }, 500);
+    }
+
+    const acceptBtn = document.getElementById('cookie-accept-btn');
+    const declineBtn = document.getElementById('cookie-decline-btn');
+
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEYS.COOKIE_CONSENT, 'accepted');
+        banner.classList.remove('active');
+        playClickSound();
+        showToast('Cookie preferences saved: All accepted');
+      });
+    }
+
+    if (declineBtn) {
+      declineBtn.addEventListener('click', () => {
+        localStorage.setItem(STORAGE_KEYS.COOKIE_CONSENT, 'necessary');
+        banner.classList.remove('active');
+        playClickSound();
+        showToast('Cookie preferences saved: Necessary only');
+      });
     }
   }
 
