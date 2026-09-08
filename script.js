@@ -19,9 +19,49 @@
     COOKIE_CONSENT: 'numreach_cookie_consent_v1'
   };
 
+  /**
+   * Safe persistent storage wrapper.
+   * Catches SecurityError/AccessDenied when run in sandboxed iframes or privacy modes.
+   */
+  const safeStorage = {
+    _mem: {},
+    getItem(key) {
+      try {
+        if (typeof window !== 'undefined' && 'localStorage' in window && window.localStorage) {
+          return window.localStorage.getItem(key);
+        }
+      } catch (e) {
+        // Fallback to in-memory store
+      }
+      return Object.prototype.hasOwnProperty.call(this._mem, key) ? this._mem[key] : null;
+    },
+    setItem(key, val) {
+      try {
+        if (typeof window !== 'undefined' && 'localStorage' in window && window.localStorage) {
+          window.localStorage.setItem(key, String(val));
+          return;
+        }
+      } catch (e) {
+        // Fallback to in-memory store
+      }
+      this._mem[key] = String(val);
+    },
+    removeItem(key) {
+      try {
+        if (typeof window !== 'undefined' && 'localStorage' in window && window.localStorage) {
+          window.localStorage.removeItem(key);
+          return;
+        }
+      } catch (e) {
+        // Fallback
+      }
+      delete this._mem[key];
+    }
+  };
+
   const appState = {
     currentMode: 'solve', // 'home' | 'solve' | 'game'
-    audioEnabled: localStorage.getItem(STORAGE_KEYS.AUDIO_ENABLED) !== 'false',
+    audioEnabled: safeStorage.getItem(STORAGE_KEYS.AUDIO_ENABLED) !== 'false',
     
     // Mode 1: Solver State
     solver: {
@@ -129,22 +169,22 @@
 
   function loadSavedData() {
     try {
-      const savedStats = localStorage.getItem(STORAGE_KEYS.STATS);
+      const savedStats = safeStorage.getItem(STORAGE_KEYS.STATS);
       if (savedStats) {
         appState.stats = Object.assign(appState.stats, JSON.parse(savedStats));
       }
-      const savedHist = localStorage.getItem(STORAGE_KEYS.HISTORY);
+      const savedHist = safeStorage.getItem(STORAGE_KEYS.HISTORY);
       if (savedHist) {
         appState.history = JSON.parse(savedHist);
       }
     } catch (e) {
-      console.warn('Could not read from localStorage', e);
+      console.warn('Could not read saved data', e);
     }
   }
 
   function saveStats() {
     try {
-      localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(appState.stats));
+      safeStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify(appState.stats));
     } catch (e) {}
   }
 
@@ -157,7 +197,7 @@
     // Keep max 30 entries
     if (appState.history.length > 30) appState.history.pop();
     try {
-      localStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(appState.history));
+      safeStorage.setItem(STORAGE_KEYS.HISTORY, JSON.stringify(appState.history));
     } catch (e) {}
   }
 
@@ -886,13 +926,13 @@
      ========================================================================== */
 
   function initApp() {
-    loadSavedData();
-    setupNavigation();
-    setupSolveMode();
-    setupGameMode();
-    setupModals();
-    setupCookieConsent();
-    updateHeaderStatsBadge();
+    try { loadSavedData(); } catch (e) { console.error('loadSavedData error:', e); }
+    try { setupNavigation(); } catch (e) { console.error('setupNavigation error:', e); }
+    try { setupSolveMode(); } catch (e) { console.error('setupSolveMode error:', e); }
+    try { setupGameMode(); } catch (e) { console.error('setupGameMode error:', e); }
+    try { setupModals(); } catch (e) { console.error('setupModals error:', e); }
+    try { setupCookieConsent(); } catch (e) { console.error('setupCookieConsent error:', e); }
+    try { updateHeaderStatsBadge(); } catch (e) { console.error('updateHeaderStatsBadge error:', e); }
 
     // Sound toggle state
     const soundBtn = document.getElementById('sound-toggle-btn');
@@ -900,7 +940,7 @@
       soundBtn.classList.toggle('active', appState.audioEnabled);
       soundBtn.addEventListener('click', () => {
         appState.audioEnabled = !appState.audioEnabled;
-        localStorage.setItem(STORAGE_KEYS.AUDIO_ENABLED, String(appState.audioEnabled));
+        safeStorage.setItem(STORAGE_KEYS.AUDIO_ENABLED, String(appState.audioEnabled));
         soundBtn.classList.toggle('active', appState.audioEnabled);
         showToast(appState.audioEnabled ? 'Sound enabled' : 'Sound muted');
       });
@@ -908,7 +948,7 @@
 
     // Theme toggle setup (Crisp Light Mode by default)
     const themeBtn = document.getElementById('theme-toggle-btn');
-    const savedTheme = localStorage.getItem(STORAGE_KEYS.THEME) || 'light';
+    const savedTheme = safeStorage.getItem(STORAGE_KEYS.THEME) || 'light';
     applyTheme(savedTheme);
 
     if (themeBtn) {
@@ -916,7 +956,7 @@
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         const nextTheme = isDark ? 'light' : 'dark';
         applyTheme(nextTheme);
-        localStorage.setItem(STORAGE_KEYS.THEME, nextTheme);
+        safeStorage.setItem(STORAGE_KEYS.THEME, nextTheme);
         showToast(nextTheme === 'light' ? 'Light mode enabled' : 'Dark mode enabled');
         playClickSound();
       });
@@ -1934,7 +1974,7 @@
     if (clearHistBtn) {
       clearHistBtn.addEventListener('click', () => {
         appState.history = [];
-        localStorage.removeItem(STORAGE_KEYS.HISTORY);
+        safeStorage.removeItem(STORAGE_KEYS.HISTORY);
         populateHistoryModal();
         showToast('History cleared');
       });
@@ -2007,7 +2047,7 @@
     const banner = document.getElementById('cookie-consent-banner');
     if (!banner) return;
 
-    const consent = localStorage.getItem(STORAGE_KEYS.COOKIE_CONSENT);
+    const consent = safeStorage.getItem(STORAGE_KEYS.COOKIE_CONSENT);
     if (!consent) {
       // Delay showing banner slightly for smooth UX entry
       setTimeout(() => {
@@ -2020,7 +2060,7 @@
 
     if (acceptBtn) {
       acceptBtn.addEventListener('click', () => {
-        localStorage.setItem(STORAGE_KEYS.COOKIE_CONSENT, 'accepted');
+        safeStorage.setItem(STORAGE_KEYS.COOKIE_CONSENT, 'accepted');
         banner.classList.remove('active');
         playClickSound();
         showToast('Cookie preferences saved: All accepted');
@@ -2029,7 +2069,7 @@
 
     if (declineBtn) {
       declineBtn.addEventListener('click', () => {
-        localStorage.setItem(STORAGE_KEYS.COOKIE_CONSENT, 'necessary');
+        safeStorage.setItem(STORAGE_KEYS.COOKIE_CONSENT, 'necessary');
         banner.classList.remove('active');
         playClickSound();
         showToast('Cookie preferences saved: Necessary only');
