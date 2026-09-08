@@ -1,0 +1,6 @@
+# robots.txt for NumReach — Countdown Number Game Solver
+User-agent: *
+Allow: /
+
+# Sitemap Index
+Sitemap: https://numreach.com/sitemap.xml

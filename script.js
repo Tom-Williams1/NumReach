@@ -7,6 +7,11 @@
 (() => {
   'use strict';
 
+  if (typeof window !== 'undefined') {
+    if (window.__numreach_initialized) return;
+    window.__numreach_initialized = true;
+  }
+
   /* ==========================================================================
      STATE MANAGEMENT & CONSTANTS
      ========================================================================== */
@@ -118,14 +123,64 @@
     }
   }
 
+  function copyTextToClipboard(text) {
+    try {
+      if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
+        navigator.clipboard.writeText(text).catch(() => {
+          fallbackCopy(text);
+        });
+      } else {
+        fallbackCopy(text);
+      }
+    } catch (e) {
+      fallbackCopy(text);
+    }
+
+    function fallbackCopy(str) {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = str;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch (err) {
+        console.warn('Clipboard copy fallback not allowed');
+      }
+    }
+  }
+
+  function safeScrollIntoView(el) {
+    if (!el) return;
+    try {
+      if (typeof el.scrollIntoView === 'function') {
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    } catch (e) {
+      try {
+        if (typeof el.scrollIntoView === 'function') {
+          el.scrollIntoView();
+        }
+      } catch (err) {
+        // Fallback silently if environment does not support scrollIntoView
+      }
+    }
+  }
+
   function playTone(freq, type = 'sine', duration = 0.15, gainVal = 0.08) {
     if (!appState.audioEnabled) return;
     try {
       initAudio();
-      if (!audioCtx || audioCtx.state === 'suspended') {
-        audioCtx?.resume();
-      }
       if (!audioCtx) return;
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume().catch(() => {});
+        return;
+      }
+      if (audioCtx.state !== 'running') return;
 
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
@@ -925,7 +980,12 @@
      UI CONTROLLER & EVENT WIRING
      ========================================================================== */
 
+  let isAppInitialized = false;
+
   function initApp() {
+    if (isAppInitialized) return;
+    isAppInitialized = true;
+
     try { loadSavedData(); } catch (e) { console.error('loadSavedData error:', e); }
     try { setupNavigation(); } catch (e) { console.error('setupNavigation error:', e); }
     try { setupSolveMode(); } catch (e) { console.error('setupSolveMode error:', e); }
@@ -934,35 +994,44 @@
     try { setupCookieConsent(); } catch (e) { console.error('setupCookieConsent error:', e); }
     try { updateHeaderStatsBadge(); } catch (e) { console.error('updateHeaderStatsBadge error:', e); }
 
-    // Sound toggle state
-    const soundBtn = document.getElementById('sound-toggle-btn');
-    if (soundBtn) {
-      soundBtn.classList.toggle('active', appState.audioEnabled);
-      soundBtn.addEventListener('click', () => {
-        appState.audioEnabled = !appState.audioEnabled;
-        safeStorage.setItem(STORAGE_KEYS.AUDIO_ENABLED, String(appState.audioEnabled));
+    try {
+      // Sound toggle state
+      const soundBtn = document.getElementById('sound-toggle-btn');
+      if (soundBtn) {
         soundBtn.classList.toggle('active', appState.audioEnabled);
-        showToast(appState.audioEnabled ? 'Sound enabled' : 'Sound muted');
-      });
+        soundBtn.addEventListener('click', () => {
+          appState.audioEnabled = !appState.audioEnabled;
+          safeStorage.setItem(STORAGE_KEYS.AUDIO_ENABLED, String(appState.audioEnabled));
+          soundBtn.classList.toggle('active', appState.audioEnabled);
+          showToast(appState.audioEnabled ? 'Sound enabled' : 'Sound muted');
+        });
+      }
+    } catch (e) {
+      console.error('soundBtn setup error:', e);
     }
 
-    // Theme toggle setup (Crisp Light Mode by default)
-    const themeBtn = document.getElementById('theme-toggle-btn');
-    const savedTheme = safeStorage.getItem(STORAGE_KEYS.THEME) || 'light';
-    applyTheme(savedTheme);
+    try {
+      // Theme toggle setup (Crisp Light Mode by default)
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      const savedTheme = safeStorage.getItem(STORAGE_KEYS.THEME) || 'light';
+      applyTheme(savedTheme);
 
-    if (themeBtn) {
-      themeBtn.addEventListener('click', () => {
-        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-        const nextTheme = isDark ? 'light' : 'dark';
-        applyTheme(nextTheme);
-        safeStorage.setItem(STORAGE_KEYS.THEME, nextTheme);
-        showToast(nextTheme === 'light' ? 'Light mode enabled' : 'Dark mode enabled');
-        playClickSound();
-      });
+      if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          const nextTheme = isDark ? 'light' : 'dark';
+          applyTheme(nextTheme);
+          safeStorage.setItem(STORAGE_KEYS.THEME, nextTheme);
+          showToast(nextTheme === 'light' ? 'Light mode enabled' : 'Dark mode enabled');
+          playClickSound();
+        });
+      }
+    } catch (e) {
+      console.error('themeBtn setup error:', e);
     }
 
     function applyTheme(theme) {
+      const themeBtn = document.getElementById('theme-toggle-btn');
       if (theme === 'dark') {
         document.documentElement.setAttribute('data-theme', 'dark');
         if (themeBtn) {
@@ -996,8 +1065,12 @@
       }
     }
 
-    // Default to 'solve' mode or load clean view
-    switchMode('solve');
+    // Default to 'solve' mode or load clean view without audio trigger on initial load
+    try {
+      switchMode('solve', false);
+    } catch (e) {
+      console.error('switchMode solve error:', e);
+    }
   }
 
   /* Navigation & Mode Switching */
@@ -1006,26 +1079,28 @@
     if (brand) {
       brand.addEventListener('click', (e) => {
         e.preventDefault();
-        switchMode('home');
+        switchMode('home', true);
       });
     }
 
     const tabSolve = document.getElementById('tab-mode-solve');
     const tabGame = document.getElementById('tab-mode-game');
 
-    if (tabSolve) tabSolve.addEventListener('click', () => switchMode('solve'));
-    if (tabGame) tabGame.addEventListener('click', () => switchMode('game'));
+    if (tabSolve) tabSolve.addEventListener('click', () => switchMode('solve', true));
+    if (tabGame) tabGame.addEventListener('click', () => switchMode('game', true));
 
     const heroCardSolve = document.getElementById('hero-card-solve');
     const heroCardGame = document.getElementById('hero-card-game');
 
-    if (heroCardSolve) heroCardSolve.addEventListener('click', () => switchMode('solve'));
-    if (heroCardGame) heroCardGame.addEventListener('click', () => switchMode('game'));
+    if (heroCardSolve) heroCardSolve.addEventListener('click', () => switchMode('solve', true));
+    if (heroCardGame) heroCardGame.addEventListener('click', () => switchMode('game', true));
   }
 
-  function switchMode(modeName) {
+  function switchMode(modeName, playAudio = true) {
     appState.currentMode = modeName;
-    playClickSound();
+    if (playAudio) {
+      playClickSound();
+    }
 
     // Update Tab Buttons
     const tabSolve = document.getElementById('tab-mode-solve');
@@ -1367,7 +1442,7 @@
 
     if (copyBtn) {
       copyBtn.onclick = () => {
-        navigator.clipboard.writeText(`${cleanExpr} = ${primarySolution.val}`);
+        copyTextToClipboard(`${cleanExpr} = ${primarySolution.val}`);
         showToast('Equation copied to clipboard!');
         playClickSound();
       };
@@ -1376,14 +1451,14 @@
     if (shareBtn) {
       shareBtn.onclick = () => {
         const text = `🎯 NumReach (Countdown Number Game Solver): Can you reach ${result.target} using: ${appState.solver.numbers.join(', ')}? Try it on NumReach!`;
-        navigator.clipboard.writeText(text);
+        copyTextToClipboard(text);
         showToast('Shareable puzzle challenge copied!');
         playClickSound();
       };
     }
 
     // Smooth scroll down to results
-    resultsCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    safeScrollIntoView(resultsCard);
   }
 
   /* ==========================================================================
@@ -1495,7 +1570,7 @@
       sharePuzzleBtn.addEventListener('click', () => {
         if (!appState.game.currentPuzzle) return;
         const text = `🎯 NumReach (Countdown Number Game Solver): Can you reach ${appState.game.currentPuzzle.target} using [ ${appState.game.currentPuzzle.availableNumbers.join(', ')} ]? Try it out on NumReach!`;
-        navigator.clipboard.writeText(text);
+        copyTextToClipboard(text);
         showToast('Puzzle copied to clipboard! Share with your friends.');
         playClickSound();
       });
@@ -1830,7 +1905,7 @@
       <div class="feedback-title">${escapeHTML(title)}</div>
       <div class="feedback-body">${escapeHTML(body)}</div>
     `;
-    banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    safeScrollIntoView(banner);
   }
 
   function revealNextHint() {
@@ -1858,7 +1933,7 @@
         <span>${escapeHTML(nextHintText)}</span>
       `;
       hintsList.appendChild(hintEl);
-      hintEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      safeScrollIntoView(hintEl);
     }
 
     playClickSound();
@@ -1883,7 +1958,7 @@
       `;
     }
 
-    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    safeScrollIntoView(box);
     playClickSound();
     showToast('Solution revealed!');
   }
@@ -2077,11 +2152,17 @@
     }
   }
 
-  /* Initialize on DOM content loaded */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-  } else {
-    initApp();
+  /* Resilient startup: initialize immediately if DOM elements exist, plus event fallbacks */
+  if (typeof document !== 'undefined') {
+    if (document.getElementById('solve-submit-btn') || document.body) {
+      initApp();
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+      window.addEventListener('load', initApp);
+    } else {
+      initApp();
+    }
   }
 
 })();

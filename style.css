@@ -108,6 +108,13 @@
   padding: 0;
 }
 
+button {
+  cursor: pointer;
+  user-select: none;
+  font-family: inherit;
+  -webkit-tap-highlight-color: transparent;
+}
+
 html, body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
